@@ -69,6 +69,9 @@ EMAIL_BACKEND = email_config['EMAIL_BACKEND']
 EMAIL_USE_TLS = email_config['EMAIL_USE_TLS']
 EMAIL_USE_SSL = email_config['EMAIL_USE_SSL']
 
+ENABLE_SSL = ast.literal_eval(
+    os.environ.get('ENABLE_SSL', 'False'))
+
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 ORDER_FROM_EMAIL = os.getenv('ORDER_FROM_EMAIL', DEFAULT_FROM_EMAIL)
 
@@ -176,7 +179,7 @@ INSTALLED_APPS = [
     # External apps
     'versatileimagefield',
     'django_babel',
-    'bootstrap3',
+    'bootstrap4',
     'django_prices',
     'django_prices_openexchangerates',
     'graphene_django',
@@ -283,13 +286,13 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger'}
 
 LOW_STOCK_THRESHOLD = 10
-MAX_CART_LINE_QUANTITY = os.environ.get('MAX_CART_LINE_QUANTITY', 50)
+MAX_CART_LINE_QUANTITY = int(os.environ.get('MAX_CART_LINE_QUANTITY', 50))
 
 PAGINATE_BY = 16
 DASHBOARD_PAGINATE_BY = 30
 DASHBOARD_SEARCH_LIMIT = 5
 
-BOOTSTRAP3 = {
+bootstrap4 = {
     'set_placeholder': False,
     'set_required': False,
     'success_css_class': '',
@@ -422,8 +425,9 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_RESULT_BACKEND = 'django-db'
 
 # Impersonate module settings
-IMPERSONATE_URI_EXCLUSIONS = [r'^dashboard/']
-IMPERSONATE_CUSTOM_USER_QUERYSET = \
-    'saleor.userprofile.impersonate.get_impersonatable_users'
-IMPERSONATE_USE_HTTP_REFERER = True
-IMPERSONATE_CUSTOM_ALLOW = 'saleor.userprofile.impersonate.can_impersonate'
+IMPERSONATE = {
+    'URI_EXCLUSIONS': [r'^dashboard/'],
+    'CUSTOM_USER_QUERYSET': 'saleor.userprofile.impersonate.get_impersonatable_users',  # noqa
+    'USE_HTTP_REFERER': True,
+    'CUSTOM_ALLOW': 'saleor.userprofile.impersonate.can_impersonate'
+}
