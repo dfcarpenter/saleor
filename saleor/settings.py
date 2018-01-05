@@ -13,6 +13,8 @@ def get_list(text):
 
 DEBUG = ast.literal_eval(os.environ.get('DEBUG', 'True'))
 
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
+
 SITE_ID = 1
 
 PROJECT_ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
@@ -37,11 +39,11 @@ if os.environ.get('REDIS_URL'):
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://saleor:saleor@localhost:5432/saleor',
+        default='postgres://dan:q3master@localhost:5432/global_iot_market',
         conn_max_age=600)}
 
 
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Los_Angeles'
 LANGUAGE_CODE = 'en-us'
 LOCALE_PATHS = [os.path.join(PROJECT_ROOT, 'locale')]
 USE_I18N = True
@@ -121,7 +123,8 @@ TEMPLATES = [{
         'string_if_invalid': '<< MISSING VARIABLE "%s" >>' if DEBUG else ''}}]
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = os.environ.get('SECRET_KEY')
+# SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'ofyu(_62&#7-ie=x%gy7xhj33%*2v3tooc9qx#lr^i(^lnk%(3'
 
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
